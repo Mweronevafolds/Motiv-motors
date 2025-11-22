@@ -28,21 +28,50 @@ try {
         </div>
     </header>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Where Passion Finds Its Drive</h1>
-            <p>Curated excellence. Timeless machines. Your journey begins here.</p>
-            <a href="#inventory" class="btn btn-accent">Explore Inventory</a>
+    <section class="hero" style="height: 85vh; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+        
+        <div style="position: absolute; inset: 0; z-index: -1;">
+            <img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=1920&auto=format&fit=crop" 
+                 style="width: 100%; height: 100%; object-fit: cover; filter: brightness(0.4);">
+        </div>
+
+        <div class="glass-panel reveal" style="padding: 50px; max-width: 800px; text-align: center;">
+            <h1 style="font-size: 3.5rem; margin-bottom: 10px; line-height: 1.1;">
+                THE <span style="color: var(--accent-gold);">NAIROBI</span><br>COLLECTION
+            </h1>
+            <p style="font-size: 1.2rem; color: #ddd; margin-bottom: 30px; font-weight: 300;">
+                Curated excellence for the discerning driver. 
+                Experience the future of automotive luxury.
+            </p>
+            
+            <div style="display: flex; gap: 20px; justify-content: center;">
+                <a href="inventory.php" class="btn btn-accent" style="padding: 15px 40px; font-size: 1rem;">View Collection</a>
+                <a href="#mission" class="btn" style="border: 1px solid white; color: white; padding: 15px 40px;">Our Ethos</a>
+            </div>
+        </div>
+
+        <div style="position: absolute; bottom: 30px; animation: bounce 2s infinite;">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+            </svg>
         </div>
     </section>
 
-    <section class="mission" id="mission-section">
-        <h2>The Motiv Standard</h2>
+    <style>
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+      40% {transform: translateY(-10px);}
+      60% {transform: translateY(-5px);}
+    }
+    </style>
+
+    <section class="mission reveal" id="mission">
+        <h2 class="reveal">The Motiv Standard</h2>
         <p>At Motiv Motors, we believe a car is not just transportation; it is a kinetic sculpture, a piece of history, and a vessel for the soul. We curate only the finest examples of automotive engineering for the discerning collector.</p>
     </section>
 
     <section id="inventory" class="inventory">
-        <h2>Curated Collection</h2>
+        <h2 class="reveal">Curated Collection</h2>
         
         <div class="car-grid">
             <?php foreach ($cars as $car): ?>
@@ -83,6 +112,28 @@ try {
 </footer>
 
     <?php include 'navbar.php'; ?>
+
+    <script>
+        // Simple Intersection Observer alternative for Scroll Animations
+        window.addEventListener('scroll', reveal);
+
+        function reveal() {
+            var reveals = document.querySelectorAll('.reveal, .car-card-3d');
+
+            for (var i = 0; i < reveals.length; i++) {
+                var windowheight = window.innerHeight;
+                var revealtop = reveals[i].getBoundingClientRect().top;
+                var revealpoint = 150;
+
+                if (revealtop < windowheight - revealpoint) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+        
+        // Trigger once on load
+        reveal();
+    </script>
 
 </body>
 </html>

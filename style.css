@@ -2,29 +2,56 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
 
 :root {
-    --primary-color: #191970; /* Midnight Blue */
-    --accent-color: #D4AF37;  /* Prestige Gold */
-    --bg-light: #f8f9fa;
-    --text-dark: #1a1a1a;
-    --text-light: #ffffff;
-    --shadow-sm: 0 4px 6px rgba(0,0,0,0.1);
-    --shadow-lg: 0 10px 15px rgba(0,0,0,0.15);
+    /* Deep "Midnight in Nairobi" palette */
+    --bg-gradient: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    --glass-surface: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0a0;
+    --accent-gold: #D4AF37;
+    --neon-glow: 0 0 10px rgba(212, 175, 55, 0.3);
+
+    /* Legacy tokens mapped to new scheme */
+    --primary-color: #120c2a;
+    --accent-color: var(--accent-gold);
+    --bg-light: #0f0c29;
+    --text-dark: var(--text-primary);
+    --text-light: var(--text-primary);
+    --shadow-sm: 0 8px 32px rgba(0, 0, 0, 0.37);
+    --shadow-lg: 0 20px 45px rgba(0, 0, 0, 0.45);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
     font-family: 'Montserrat', sans-serif;
-    background-color: var(--bg-light);
-    color: var(--text-dark);
+    background-color: #0f0c29;
+    background-image:
+        linear-gradient(135deg, rgba(15, 12, 41, 0.95) 0%, rgba(48, 43, 99, 0.95) 100%),
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23D4AF37' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    color: var(--text-primary);
     line-height: 1.6;
-    padding-top: 100px;
+    background-attachment: fixed;
+    padding-top: 120px;
+    min-height: 100vh;
 }
 
 h1, h2, h3, h4 {
     font-family: 'Playfair Display', serif;
-    color: var(--primary-color);
-    font-weight: 700;
+    color: var(--text-primary);
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+h2 {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 40px;
+    background: linear-gradient(to right, #fff, #999);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
 }
 
 a { text-decoration: none; color: inherit; }
@@ -34,23 +61,43 @@ ul { list-style: none; }
 .btn {
     display: inline-block;
     padding: 12px 30px;
-    border-radius: 4px;
+    border-radius: 999px;
     text-transform: uppercase;
     font-size: 0.85rem;
     font-weight: 600;
     letter-spacing: 1px;
     transition: all 0.3s ease;
     cursor: pointer;
-    border: none;
+    border: 1px solid var(--glass-border);
+    background: transparent;
+    color: var(--text-primary);
 }
 
-.btn-primary { background-color: var(--primary-color); color: var(--text-light); }
-.btn-primary:hover { background-color: #0d0d4d; }
+.btn-primary { background: rgba(255,255,255,0.15); color: var(--text-primary); }
+.btn-primary:hover { background: rgba(255,255,255,0.3); }
 
-.btn-accent { background-color: var(--accent-color); color: var(--primary-color); box-shadow: var(--shadow-sm); }
-.btn-accent:hover { background-color: #b5952f; transform: translateY(-2px); }
+.btn-accent { background-color: var(--accent-gold); color: #090510; box-shadow: var(--neon-glow); border-color: transparent; }
+.btn-accent:hover { background-color: #b5952f; transform: translateY(-2px); box-shadow: 0 0 25px rgba(212, 175, 55, 0.45); }
 
+.glass-panel {
+    background: var(--glass-surface);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    border-radius: 16px;
+}
 
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
 
 .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--accent-color); }
 
@@ -60,40 +107,85 @@ nav a:hover { color: var(--accent-color); }
 
 /* --- Hero Section --- */
 .hero {
-    height: 70vh;
-    background: linear-gradient(rgba(25, 25, 112, 0.6), rgba(0, 0, 0, 0.7)), 
-                url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: relative;
     text-align: center;
-    color: white;
+    color: var(--text-primary);
 }
-.hero h1 { color: var(--accent-color); font-size: 3.5rem; margin-bottom: 20px; }
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+}
 .hero p { font-size: 1.2rem; margin-bottom: 30px; font-weight: 300; }
 
 /* --- Inventory / Sections --- */
-.inventory, .mission { padding: 60px 20px; max-width: 1200px; margin: 0 auto; }
-.mission { text-align: center; max-width: 800px; background: white; }
-.inventory h2, .mission h2 { text-align: center; margin-bottom: 40px; font-size: 2.5rem; }
+.inventory, .mission {
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.mission {
+    text-align: center;
+    max-width: 800px;
+    margin: 60px auto;
+}
+
+.inventory .glass-panel,
+.mission {
+    background: var(--glass-surface);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+    padding: 40px;
+}
 
 /* --- Search Filter --- */
 .filter-section {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: var(--shadow-sm);
+    padding: 30px;
+    border-radius: 16px;
     margin-bottom: 30px;
 }
 .filter-form { display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-end; }
 .filter-group { flex: 1; min-width: 200px; }
-.filter-group label { display: block; margin-bottom: 5px; font-size: 0.85rem; font-weight: 600; color: #555; }
-.filter-group input, .filter-group select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
-.btn-search { background-color: var(--primary-color); color: white; padding: 10px 25px; border: none; border-radius: 4px; cursor: pointer; height: 42px; font-weight: 600; }
+.filter-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent-gold);
+}
+.filter-group input,
+.filter-group select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+}
+.filter-group select option { color: #000; }
+.btn-search {
+    background-color: var(--accent-gold);
+    color: #0d081c;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    height: 46px;
+    font-weight: 600;
+}
+.btn-search:hover { box-shadow: var(--neon-glow); }
 
 /* --- Car Grid --- */
 .car-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-.car-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: var(--shadow-sm); transition: transform 0.3s ease; }
+.car-card {
+    background: var(--glass-surface);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--glass-border);
+    transition: transform 0.3s ease;
+}
 .car-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
 
 .card-image-wrapper { position: relative; }
@@ -109,10 +201,32 @@ nav a:hover { color: var(--accent-color); }
 }
 .car-card.is-sold .card-image { filter: grayscale(100%); opacity: 0.8; }
 
-.card-details { padding: 20px; }
-.card-title { font-size: 1.4rem; margin-bottom: 5px; }
-.card-price { color: var(--accent-color); font-weight: 700; font-size: 1.2rem; margin-bottom: 15px; }
-.card-specs { font-size: 0.9rem; color: #666; margin-bottom: 20px; display: flex; justify-content: space-between; }
+.card-details {
+    padding: 20px;
+    background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.8));
+}
+.card-title {
+    font-size: 1.3rem;
+    font-weight: 300;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+}
+.card-price {
+    color: var(--accent-gold);
+    font-size: 1.5rem;
+    text-shadow: var(--neon-glow);
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 15px;
+}
+.card-specs {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 10px;
+}
 
 /* --- Listing Detail Page --- */
 .listing-container {
@@ -121,10 +235,11 @@ nav a:hover { color: var(--accent-color); }
 }
 .spec-grid {
     display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px;
-    background: white; padding: 20px; border-radius: 8px; border-left: 4px solid var(--accent-color);
+    background: var(--glass-surface); padding: 20px; border-radius: 16px; border-left: 4px solid var(--accent-color);
 }
-.contact-form { background: white; padding: 30px; border-radius: 8px; box-shadow: var(--shadow-sm); }
-.contact-form input, .contact-form textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px; }
+.contact-form { background: var(--glass-surface); padding: 30px; border-radius: 16px; box-shadow: var(--shadow-sm); border: 1px solid var(--glass-border); }
+.contact-form input, .contact-form textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; background: rgba(0,0,0,0.3); color: var(--text-primary); }
+
 .contact-form label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; }
 
 /* --- Footer --- */
@@ -175,8 +290,11 @@ nav a:hover { color: var(--accent-color); }
     display: flex;
     flex-direction: column; /* Stack image and text */
     justify-content: flex-start;
-    background: white; /* Your card background */
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    border-radius: 16px;
     box-shadow: var(--shadow-sm);
     transition: 300ms ease-in-out;
     overflow: hidden; /* Keep image inside rounded corners */

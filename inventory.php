@@ -77,9 +77,9 @@ if (isset($pdo)) {
     </header>
 
     <section class="inventory">
-        <h2>Find Your Drive</h2>
+        <h2 class="reveal">Find Your Drive</h2>
         
-        <div class="filter-section">
+        <div class="filter-section glass-panel reveal" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">
             <form method="GET" action="inventory.php" class="filter-form">
                 <div class="filter-group">
                     <label>Search Model</label>
@@ -121,7 +121,7 @@ if (isset($pdo)) {
             <div class="car-grid">
                 <?php foreach ($cars as $car): ?>
                 
-                <div class="car-card-3d <?= ($car['status'] == 'Sold') ? 'is-sold' : '' ?>">
+                <div class="car-card-3d <?= ($car['status'] == 'Sold') ? 'is-sold' : '' ?> reveal">
                     <div class="canvas">
                         <?php for($i=1; $i<=25; $i++): ?>
                             <div class="tracker tr-<?= $i ?>"></div>
@@ -226,6 +226,28 @@ if (isset($pdo)) {
                 localStorage.removeItem(key);
             }
         }
+    </script>
+
+    <script>
+        // Simple Intersection Observer alternative for Scroll Animations
+        window.addEventListener('scroll', reveal);
+
+        function reveal() {
+            var reveals = document.querySelectorAll('.reveal, .car-card-3d');
+
+            for (var i = 0; i < reveals.length; i++) {
+                var windowheight = window.innerHeight;
+                var revealtop = reveals[i].getBoundingClientRect().top;
+                var revealpoint = 150;
+
+                if (revealtop < windowheight - revealpoint) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+        
+        // Trigger once on load
+        reveal();
     </script>
 
 </body>

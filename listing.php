@@ -41,18 +41,14 @@ $wa_link = "https://wa.me/" . $wa_number . "?text=" . urlencode($wa_message);
 <body>
 
     <header>
-        <div class="nav-container">
+        <div class="nav-container" style="justify-content: center;">
             <div class="brand">
-                <a href="index.php" class="logo">MOTIV MOTORS</a>
+                <a href="index.php" class="logo" style="font-size: 2rem;">MOTIV MOTORS</a>
             </div>
-            <nav>
-                <ul>
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="inventory.php">Inventory</a></li>
-                </ul>
-            </nav>
         </div>
     </header>
+
+    <?php include 'navbar.php'; ?>
 
     <div class="listing-container">
         <div class="listing-image">
