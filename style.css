@@ -1,0 +1,441 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --primary-color: #191970; /* Midnight Blue */
+    --accent-color: #D4AF37;  /* Prestige Gold */
+    --bg-light: #f8f9fa;
+    --text-dark: #1a1a1a;
+    --text-light: #ffffff;
+    --shadow-sm: 0 4px 6px rgba(0,0,0,0.1);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.15);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+    padding-top: 100px;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Playfair Display', serif;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+
+/* --- Components --- */
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary { background-color: var(--primary-color); color: var(--text-light); }
+.btn-primary:hover { background-color: #0d0d4d; }
+
+.btn-accent { background-color: var(--accent-color); color: var(--primary-color); box-shadow: var(--shadow-sm); }
+.btn-accent:hover { background-color: #b5952f; transform: translateY(-2px); }
+
+
+
+.logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--accent-color); }
+
+nav ul { display: flex; gap: 25px; }
+nav a { color: var(--text-light); font-size: 0.9rem; transition: color 0.3s; }
+nav a:hover { color: var(--accent-color); }
+
+/* --- Hero Section --- */
+.hero {
+    height: 70vh;
+    background: linear-gradient(rgba(25, 25, 112, 0.6), rgba(0, 0, 0, 0.7)), 
+                url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+.hero h1 { color: var(--accent-color); font-size: 3.5rem; margin-bottom: 20px; }
+.hero p { font-size: 1.2rem; margin-bottom: 30px; font-weight: 300; }
+
+/* --- Inventory / Sections --- */
+.inventory, .mission { padding: 60px 20px; max-width: 1200px; margin: 0 auto; }
+.mission { text-align: center; max-width: 800px; background: white; }
+.inventory h2, .mission h2 { text-align: center; margin-bottom: 40px; font-size: 2.5rem; }
+
+/* --- Search Filter --- */
+.filter-section {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 30px;
+}
+.filter-form { display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-end; }
+.filter-group { flex: 1; min-width: 200px; }
+.filter-group label { display: block; margin-bottom: 5px; font-size: 0.85rem; font-weight: 600; color: #555; }
+.filter-group input, .filter-group select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
+.btn-search { background-color: var(--primary-color); color: white; padding: 10px 25px; border: none; border-radius: 4px; cursor: pointer; height: 42px; font-weight: 600; }
+
+/* --- Car Grid --- */
+.car-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+.car-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: var(--shadow-sm); transition: transform 0.3s ease; }
+.car-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+
+.card-image-wrapper { position: relative; }
+.card-image { height: 220px; width: 100%; object-fit: cover; }
+
+/* Sold Badge */
+.sold-badge {
+    position: absolute; top: 15px; right: 15px;
+    background-color: #d32f2f; color: white;
+    padding: 8px 15px; font-weight: 800; text-transform: uppercase;
+    font-size: 0.9rem; border-radius: 4px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    z-index: 10; letter-spacing: 1px; transform: rotate(-10deg);
+}
+.car-card.is-sold .card-image { filter: grayscale(100%); opacity: 0.8; }
+
+.card-details { padding: 20px; }
+.card-title { font-size: 1.4rem; margin-bottom: 5px; }
+.card-price { color: var(--accent-color); font-weight: 700; font-size: 1.2rem; margin-bottom: 15px; }
+.card-specs { font-size: 0.9rem; color: #666; margin-bottom: 20px; display: flex; justify-content: space-between; }
+
+/* --- Listing Detail Page --- */
+.listing-container {
+    max-width: 1200px; margin: 60px auto; padding: 0 20px;
+    display: grid; grid-template-columns: 1.5fr 1fr; gap: 50px;
+}
+.spec-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px;
+    background: white; padding: 20px; border-radius: 8px; border-left: 4px solid var(--accent-color);
+}
+.contact-form { background: white; padding: 30px; border-radius: 8px; box-shadow: var(--shadow-sm); }
+.contact-form input, .contact-form textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px; }
+.contact-form label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; }
+
+/* --- Footer --- */
+.footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: left; }
+
+/* Mobile */
+@media (max-width: 768px) {
+    .hero h1 { font-size: 2.5rem; }
+    .listing-container { grid-template-columns: 1fr; }
+    .nav-container { flex-direction: column; gap: 15px; }
+    .footer-content { grid-template-columns: 1fr; text-align: center; }
+}
+/* --- 3D CARD EFFECT (Adapted for Motiv Motors) --- */
+
+/* 1. The Wrapper (Replaces old .car-card container styles) */
+.car-card-3d {
+    position: relative;
+    width: 100%; /* Fits your grid column */
+    min-height: 450px; /* Give it height */
+    transition: 200ms;
+    /* Remove default background since the inner card has it */
+    background: transparent; 
+    box-shadow: none;
+}
+
+/* 2. The Canvas (Holds the trackers) */
+.canvas {
+    perspective: 800px;
+    inset: 0;
+    z-index: 10; /* Sit above base layer */
+    position: absolute;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-template-areas: 
+        "tr-1 tr-2 tr-3 tr-4 tr-5"
+        "tr-6 tr-7 tr-8 tr-9 tr-10"
+        "tr-11 tr-12 tr-13 tr-14 tr-15"
+        "tr-16 tr-17 tr-18 tr-19 tr-20"
+        "tr-21 tr-22 tr-23 tr-24 tr-25";
+}
+
+/* 3. The Inner Content (The actual car card) */
+.car-card-inner {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    display: flex;
+    flex-direction: column; /* Stack image and text */
+    justify-content: flex-start;
+    background: white; /* Your card background */
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+    transition: 300ms ease-in-out;
+    overflow: hidden; /* Keep image inside rounded corners */
+    transform-style: preserve-3d; /* Crucial for 3D */
+}
+
+/* 4. Trackers (The invisible grid) */
+.tracker { position: absolute; z-index: 20; width: 100%; height: 100%; cursor: pointer; }
+
+/* Grid Areas */
+.tr-1 { grid-area: tr-1; } .tr-2 { grid-area: tr-2; } .tr-3 { grid-area: tr-3; } .tr-4 { grid-area: tr-4; } .tr-5 { grid-area: tr-5; }
+.tr-6 { grid-area: tr-6; } .tr-7 { grid-area: tr-7; } .tr-8 { grid-area: tr-8; } .tr-9 { grid-area: tr-9; } .tr-10 { grid-area: tr-10; }
+.tr-11 { grid-area: tr-11; } .tr-12 { grid-area: tr-12; } .tr-13 { grid-area: tr-13; } .tr-14 { grid-area: tr-14; } .tr-15 { grid-area: tr-15; }
+.tr-16 { grid-area: tr-16; } .tr-17 { grid-area: tr-17; } .tr-18 { grid-area: tr-18; } .tr-19 { grid-area: tr-19; } .tr-20 { grid-area: tr-20; }
+.tr-21 { grid-area: tr-21; } .tr-22 { grid-area: tr-22; } .tr-23 { grid-area: tr-23; } .tr-24 { grid-area: tr-24; } .tr-25 { grid-area: tr-25; }
+
+/* 5. The 3D Rotations (Targeting Class instead of ID) */
+.tr-1:hover ~ .car-card-inner { transform: rotateX(10deg) rotateY(-10deg); }
+.tr-2:hover ~ .car-card-inner { transform: rotateX(10deg) rotateY(-5deg); }
+.tr-3:hover ~ .car-card-inner { transform: rotateX(10deg) rotateY(0deg); }
+.tr-4:hover ~ .car-card-inner { transform: rotateX(10deg) rotateY(5deg); }
+.tr-5:hover ~ .car-card-inner { transform: rotateX(10deg) rotateY(10deg); }
+
+.tr-6:hover ~ .car-card-inner { transform: rotateX(5deg) rotateY(-10deg); }
+.tr-7:hover ~ .car-card-inner { transform: rotateX(5deg) rotateY(-5deg); }
+.tr-8:hover ~ .car-card-inner { transform: rotateX(5deg) rotateY(0deg); }
+.tr-9:hover ~ .car-card-inner { transform: rotateX(5deg) rotateY(5deg); }
+.tr-10:hover ~ .car-card-inner { transform: rotateX(5deg) rotateY(10deg); }
+
+.tr-11:hover ~ .car-card-inner { transform: rotateX(0deg) rotateY(-10deg); }
+.tr-12:hover ~ .car-card-inner { transform: rotateX(0deg) rotateY(-5deg); }
+.tr-13:hover ~ .car-card-inner { transform: rotateX(0deg) rotateY(0deg); }
+.tr-14:hover ~ .car-card-inner { transform: rotateX(0deg) rotateY(5deg); }
+.tr-15:hover ~ .car-card-inner { transform: rotateX(0deg) rotateY(10deg); }
+
+.tr-16:hover ~ .car-card-inner { transform: rotateX(-5deg) rotateY(-10deg); }
+.tr-17:hover ~ .car-card-inner { transform: rotateX(-5deg) rotateY(-5deg); }
+.tr-18:hover ~ .car-card-inner { transform: rotateX(-5deg) rotateY(0deg); }
+.tr-19:hover ~ .car-card-inner { transform: rotateX(-5deg) rotateY(5deg); }
+.tr-20:hover ~ .car-card-inner { transform: rotateX(-5deg) rotateY(10deg); }
+
+.tr-21:hover ~ .car-card-inner { transform: rotateX(-10deg) rotateY(-10deg); }
+.tr-22:hover ~ .car-card-inner { transform: rotateX(-10deg) rotateY(-5deg); }
+.tr-23:hover ~ .car-card-inner { transform: rotateX(-10deg) rotateY(0deg); }
+.tr-24:hover ~ .car-card-inner { transform: rotateX(-10deg) rotateY(5deg); }
+.tr-25:hover ~ .car-card-inner { transform: rotateX(-10deg) rotateY(10deg); }
+
+/* 6. CRITICAL: Make Buttons Clickable */
+/* The trackers are z-index 20. We need the buttons to be higher so you can click them! */
+.car-card-inner .btn, 
+.car-card-inner a {
+    position: relative;
+    z-index: 50; /* Higher than tracker */
+    pointer-events: auto;
+}
+/* --- FAVORITE BUTTON (Heart Animation) --- */
+
+/* Hide the actual checkbox */
+.fav-input {
+  display: none;
+}
+
+/* The Button Container */
+.fav-label {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 15px;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 10px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  color: black;
+  margin-top: 15px; /* Spacing from other buttons */
+  justify-content: center; /* Center content */
+  border: 1px solid #eee; /* Subtle border */
+  transition: transform 0.2s;
+}
+
+.fav-label:hover {
+    transform: scale(1.02);
+}
+
+/* When Checked: Animate Heart */
+.fav-input:checked + .fav-label svg {
+  fill: hsl(0deg 100% 50%);
+  stroke: hsl(0deg 100% 50%);
+  animation: heartButton 1s;
+}
+
+@keyframes heartButton {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.3); }
+  50% { transform: scale(1); }
+  75% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+/* Text Toggle Animation */
+.fav-label .action {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  height: 20px; /* Fixed height to prevent jumping */
+  min-width: 120px; /* Fixed width for text */
+}
+
+.fav-label .action span {
+  grid-column-start: 1;
+  grid-column-end: 1;
+  grid-row-start: 1;
+  grid-row-end: 1;
+  transition: all .5s;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* State 1: Unchecked */
+.fav-label .action span.option-1 {
+  transform: translate(0px, 0%);
+  opacity: 1;
+}
+.fav-input:checked + .fav-label .action span.option-1 {
+  transform: translate(0px, -100%);
+  opacity: 0;
+}
+
+/* State 2: Checked */
+.fav-label .action span.option-2 {
+  transform: translate(0px, 100%);
+  opacity: 0;
+}
+.fav-input:checked + .fav-label .action span.option-2 {
+  transform: translate(0px, 0%);
+  opacity: 1;
+}
+/* --- FLOATING DOCK NAVIGATION (Replaces Top Nav) --- */
+
+.menu {
+  padding: 0.5rem;
+  background-color: var(--primary-color); /* Midnight Blue */
+  position: fixed;
+  top: 20px;
+  bottom: auto;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px 0 rgba(0, 0, 0, 0.3);
+  z-index: 1000; /* Top of everything */
+  border: 1px solid var(--accent-color);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.menu.is-hidden {
+  transform: translate(-50%, -150%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.link {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 70px;
+  height: 50px;
+  border-radius: 8px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  transform-origin: center left;
+  transition: width 0.2s ease-in;
+  text-decoration: none;
+  color: white;
+}
+
+/* Gold Slide Effect */
+.link:before {
+  position: absolute;
+  z-index: -1;
+  content: "";
+  display: block;
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  transform: translateX(100%);
+  transition: transform 0.2s ease-in;
+  transform-origin: center right;
+  background-color: var(--accent-color); /* Prestige Gold */
+}
+
+/* Hover Animation */
+.link:hover,
+.link:focus {
+  outline: 0;
+  width: 130px; /* Expand to show text */
+}
+
+.link:hover:before,
+.link:focus:before {
+  transform: translateX(0);
+}
+
+/* Text & Icon Color Change on Hover */
+.link:hover .link-title,
+.link:focus .link-title,
+.link:hover .link-icon {
+  color: var(--primary-color); /* Dark text on Gold bg */
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.link-icon {
+  width: 28px;
+  height: 28px;
+  display: block;
+  flex-shrink: 0;
+  left: 18px;
+  position: absolute;
+}
+
+.link-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.link-title {
+  transform: translateX(100%);
+  transition: transform 0.2s ease-in;
+  transform-origin: center right;
+  display: block;
+  text-align: center;
+  text-indent: 28px;
+  width: 100%;
+  font-weight: bold;
+  font-size: 0.9rem;
+  opacity: 0;
+  white-space: nowrap;
+}
+
+/* Header Adjustment: Center the Logo since nav is gone */
+header {
+    background-color: transparent;
+    padding: 10px 0;
+    position: absolute;
+    top: 80px;
+    width: 100%;
+    text-align: center;
+}
+
+.logo {
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+header .nav-container {
+    justify-content: center;
+}
