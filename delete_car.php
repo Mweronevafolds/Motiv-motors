@@ -31,12 +31,22 @@ if (isset($_GET['id'])) {
         unlink($car['image_url']);
     }
 
-    // 2. Delete the record from Database
+    // 2. Delete dependent records (inquiries/orders) to satisfy FK constraints
     try {
         if (isset($pdo)) {
+            $pdo->prepare("DELETE FROM inquiries WHERE car_id = ?")->execute([$id]);
+            $pdo->prepare("DELETE FROM orders WHERE car_id = ?")->execute([$id]);
             $stmt = $pdo->prepare("DELETE FROM cars WHERE id = ?");
             $stmt->execute([$id]);
         } elseif (isset($mysqli)) {
+            $stmt = $mysqli->prepare("DELETE FROM inquiries WHERE car_id = ?");
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+
+            $stmt = $mysqli->prepare("DELETE FROM orders WHERE car_id = ?");
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+
             $stmt = $mysqli->prepare("DELETE FROM cars WHERE id = ?");
             $stmt->bind_param("i", $id);
             $stmt->execute();
